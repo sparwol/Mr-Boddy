@@ -1,0 +1,15 @@
+vendor_id,vendor,service,business_owner,data_classes,access_methods,privilege,connected_systems,network_segments,mfa_enforced,last_security_review,breach_notice_clause,subprocessors
+V01,Corvid Managed IT,Managed service provider (24x7 ops),CIO,credentials,vpn;service_account;on_prem_agent,admin,Active Directory;Backup vault;IT ticketing,dc-core;dc-apps,no,2025-02-10,yes,Remote support tool vendor;Offshore NOC subcontractor
+V02,Ledgerline,Payroll SaaS,CFO,employee_data;PII;financial,sso;api_key,write,HRIS,,yes,2026-05-04,yes,Cloud hosting provider;Payment processor
+V03,Northgate Analytics,BI / reporting contractor,VP Data,customer_data,vpn;service_account,read,Data warehouse,dc-apps,no,,no,Freelance analysts
+V04,Tidewater HVAC Services,Building HVAC maintenance,Facilities,internal,site_to_site,admin,Building management (HVAC),facilities,no,2023-08-19,no,
+V05,Brightpath CRM,CRM SaaS,VP Sales,customer_data;PII,sso;oauth;api_key,write,CRM;Email (Microsoft 365),,yes,2026-01-22,yes,Cloud hosting provider;Email delivery service;Support desk vendor
+V06,Keystone Pay,Card payment processing,CFO,PCI;financial,api_key,write,Payments gateway,,yes,2026-08-30,yes,Card networks;Fraud scoring vendor
+V07,Quillstack,E-signature SaaS,General Counsel,PII;customer_data,sso;oauth,read,File storage (SharePoint/OneDrive),,yes,2025-12-01,yes,Cloud hosting provider
+V08,Ironbark Backup,Offsite backup / DR,CIO,credentials,service_account;on_prem_agent,admin,Backup vault,dc-core,yes,2026-03-15,yes,Object storage provider
+V09,Pinecrest CI,CI/CD build service,VP Engineering,source_code,oauth;api_key,write,Source control,,yes,2025-06-11,yes,Cloud hosting provider;Build cache CDN
+V10,Harborline Telematics,Fleet GPS / telematics,COO,customer_data,api_key;vpn,write,Fleet telematics,dc-apps,no,2024-10-02,yes,Cellular carrier
+V11,Saltmarsh Legal eDiscovery,eDiscovery / litigation hold,General Counsel,PII;employee_data,oauth,read,Email (Microsoft 365);File storage (SharePoint/OneDrive),,yes,2026-02-27,yes,Review contractors
+V12,Fernhill Recruiting,Applicant tracking SaaS,CHRO,PII;employee_data,sso,write,HRIS,,no,,no,Background check provider
+V13,Granite Helpdesk,IT ticketing SaaS,CIO,internal;PII,sso;api_key,write,IT ticketing;Active Directory,,yes,2026-06-18,yes,Cloud hosting provider
+V14,Ospreyware WMS,Warehouse management vendor support,COO,customer_data,vpn,admin,Warehouse management,facilities,no,2025-04-09,yes,

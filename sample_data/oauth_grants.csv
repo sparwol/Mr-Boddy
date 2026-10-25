@@ -1,0 +1,32 @@
+user,department,app_name,app_domain,scopes,granted_at
+u0312,Support,Fireflies.ai Notetaker,fireflies.ai,Calendars.Read Mail.Read offline_access User.Read,2026-09-22
+u0280,Legal,Fireflies.ai Notetaker,fireflies.ai,Calendars.Read Mail.Read offline_access User.Read,2026-05-02
+u0099,Sales,Fireflies.ai Notetaker,fireflies.ai,Calendars.Read Mail.Read offline_access User.Read,2026-04-15
+u0200,Legal,Fireflies.ai Notetaker,fireflies.ai,Calendars.Read Mail.Read offline_access User.Read,2026-06-13
+u0014,Legal,Fireflies.ai Notetaker,fireflies.ai,Calendars.Read Mail.Read offline_access User.Read,2026-05-25
+u0220,Legal,Fireflies.ai Notetaker,fireflies.ai,Calendars.Read Mail.Read offline_access User.Read,2026-04-17
+u0162,Legal,Fireflies.ai Notetaker,fireflies.ai,Calendars.Read Mail.Read offline_access User.Read,2026-07-09
+u0026,Sales,Fireflies.ai Notetaker,fireflies.ai,Calendars.Read Mail.Read offline_access User.Read,2026-07-29
+u0219,Legal,Fireflies.ai Notetaker,fireflies.ai,Calendars.Read Mail.Read offline_access User.Read,2026-05-05
+u0203,Sales,Fireflies.ai Notetaker,fireflies.ai,Calendars.Read Mail.Read offline_access User.Read,2026-08-07
+u0308,Support,Fireflies.ai Notetaker,fireflies.ai,Calendars.Read Mail.Read offline_access User.Read,2026-04-13
+u0159,Support,Fireflies.ai Notetaker,fireflies.ai,Calendars.Read Mail.Read offline_access User.Read,2026-09-12
+u0111,Legal,Fireflies.ai Notetaker,fireflies.ai,Calendars.Read Mail.Read offline_access User.Read,2026-04-28
+u0072,Support,Fireflies.ai Notetaker,fireflies.ai,Calendars.Read Mail.Read offline_access User.Read,2026-06-05
+u0210,Legal,Fireflies.ai Notetaker,fireflies.ai,Calendars.Read Mail.Read offline_access User.Read,2026-04-20
+u0027,Sales,Fireflies.ai Notetaker,fireflies.ai,Calendars.Read Mail.Read offline_access User.Read,2026-09-12
+u0096,HR,Otter.ai,otter.ai,Calendars.Read User.Read,2026-09-29
+u0085,HR,Otter.ai,otter.ai,Calendars.Read User.Read,2026-05-14
+u0302,HR,Otter.ai,otter.ai,Calendars.Read User.Read,2026-08-05
+u0161,Legal,Otter.ai,otter.ai,Calendars.Read User.Read,2026-10-11
+u0264,HR,Otter.ai,otter.ai,Calendars.Read User.Read,2026-09-03
+u0036,HR,Otter.ai,otter.ai,Calendars.Read User.Read,2026-10-11
+u0081,Finance,ChatGPT connector,chatgpt.com,Files.Read.All Sites.Read.All offline_access,2026-10-08
+u0038,Finance,ChatGPT connector,chatgpt.com,Files.Read.All Sites.Read.All offline_access,2026-08-17
+u0223,Finance,ChatGPT connector,chatgpt.com,Files.Read.All Sites.Read.All offline_access,2026-09-03
+u0059,Finance,ChatGPT connector,chatgpt.com,Files.Read.All Sites.Read.All offline_access,2026-08-23
+u0226,Finance,ChatGPT connector,chatgpt.com,Files.Read.All Sites.Read.All offline_access,2026-09-13
+u0087,Marketing,Gamma,gamma.app,drive.file userinfo.email,2026-07-27
+u0217,Marketing,Gamma,gamma.app,drive.file userinfo.email,2026-10-11
+u0213,Marketing,Gamma,gamma.app,drive.file userinfo.email,2026-09-10
+u0052,Marketing,Gamma,gamma.app,drive.file userinfo.email,2026-09-21

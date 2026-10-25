@@ -1,0 +1,16 @@
+system,data_classes,criticality,network_segment
+Email (Microsoft 365),PII;customer_data;credentials;internal,5,cloud
+File storage (SharePoint/OneDrive),PII;financial;employee_data;internal;customer_data,5,cloud
+ERP (Oracle EBS),financial;PII;customer_data,5,dc-core
+Active Directory,credentials;employee_data,5,dc-core
+Backup vault,credentials;financial;PII;employee_data;customer_data,5,dc-core
+HRIS,employee_data;PII;financial,4,cloud
+CRM,customer_data;PII,4,cloud
+Payments gateway,PCI;financial,5,dmz
+Source control,source_code;credentials,4,cloud
+Data warehouse,customer_data;financial;PII,4,dc-apps
+Customer portal,customer_data;PII,4,dmz
+Warehouse management,customer_data;internal,4,facilities
+Building management (HVAC),internal,2,facilities
+Fleet telematics,customer_data;internal,3,dc-apps
+IT ticketing,internal;PII,3,cloud

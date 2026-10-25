@@ -1,0 +1,29 @@
+{
+  "_note": "Domains for well-known generative AI services. Matching is by domain suffix. Extend this list for your environment; it is not exhaustive.",
+  "services": [
+    {"id": "openai-chatgpt", "name": "ChatGPT", "vendor": "OpenAI", "category": "Chat assistant", "domains": ["chatgpt.com", "chat.openai.com"]},
+    {"id": "openai-api", "name": "OpenAI API", "vendor": "OpenAI", "category": "Model API", "domains": ["api.openai.com"]},
+    {"id": "anthropic-claude", "name": "Claude", "vendor": "Anthropic", "category": "Chat assistant", "domains": ["claude.ai"]},
+    {"id": "anthropic-api", "name": "Anthropic API", "vendor": "Anthropic", "category": "Model API", "domains": ["api.anthropic.com"]},
+    {"id": "google-gemini", "name": "Gemini", "vendor": "Google", "category": "Chat assistant", "domains": ["gemini.google.com"]},
+    {"id": "google-genai-api", "name": "Gemini API", "vendor": "Google", "category": "Model API", "domains": ["generativelanguage.googleapis.com"]},
+    {"id": "ms-copilot", "name": "Microsoft Copilot", "vendor": "Microsoft", "category": "Chat assistant", "domains": ["copilot.microsoft.com"]},
+    {"id": "perplexity", "name": "Perplexity", "vendor": "Perplexity AI", "category": "AI search", "domains": ["perplexity.ai"]},
+    {"id": "mistral-chat", "name": "Le Chat", "vendor": "Mistral AI", "category": "Chat assistant", "domains": ["chat.mistral.ai"]},
+    {"id": "mistral-api", "name": "Mistral API", "vendor": "Mistral AI", "category": "Model API", "domains": ["api.mistral.ai"]},
+    {"id": "deepseek-chat", "name": "DeepSeek Chat", "vendor": "DeepSeek", "category": "Chat assistant", "domains": ["chat.deepseek.com"]},
+    {"id": "deepseek-api", "name": "DeepSeek API", "vendor": "DeepSeek", "category": "Model API", "domains": ["api.deepseek.com"]},
+    {"id": "xai-grok", "name": "Grok", "vendor": "xAI", "category": "Chat assistant", "domains": ["grok.com"]},
+    {"id": "poe", "name": "Poe", "vendor": "Quora", "category": "Chat aggregator", "domains": ["poe.com"]},
+    {"id": "character-ai", "name": "Character.AI", "vendor": "Character.AI", "category": "Chat assistant", "domains": ["character.ai"]},
+    {"id": "huggingface", "name": "Hugging Face", "vendor": "Hugging Face", "category": "Model hub / inference", "domains": ["huggingface.co"]},
+    {"id": "openrouter", "name": "OpenRouter", "vendor": "OpenRouter", "category": "Model API aggregator", "domains": ["openrouter.ai"]},
+    {"id": "replicate", "name": "Replicate", "vendor": "Replicate", "category": "Model API", "domains": ["replicate.com"]},
+    {"id": "elevenlabs", "name": "ElevenLabs", "vendor": "ElevenLabs", "category": "Voice generation", "domains": ["elevenlabs.io"]},
+    {"id": "otter", "name": "Otter.ai", "vendor": "Otter.ai", "category": "Meeting transcription", "domains": ["otter.ai"]},
+    {"id": "fireflies", "name": "Fireflies.ai", "vendor": "Fireflies.ai", "category": "Meeting transcription", "domains": ["fireflies.ai"]},
+    {"id": "gamma", "name": "Gamma", "vendor": "Gamma", "category": "AI presentations", "domains": ["gamma.app"]},
+    {"id": "cursor", "name": "Cursor", "vendor": "Anysphere", "category": "AI coding", "domains": ["cursor.com", "cursor.sh"]},
+    {"id": "midjourney", "name": "Midjourney", "vendor": "Midjourney", "category": "Image generation", "domains": ["midjourney.com"]}
+  ]
+}

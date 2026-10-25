@@ -1,0 +1,6 @@
+service_id,status,notes
+ms-copilot,approved,Enterprise tenant with data protection
+openai-chatgpt,restricted,Enterprise workspace only; personal accounts not allowed
+huggingface,restricted,Model downloads OK; no uploads of company data
+deepseek-chat,prohibited,Blocked by policy
+character-ai,prohibited,Not for business use

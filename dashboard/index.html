@@ -1,0 +1,414 @@
+<style>
+#dash-root .xa { display: grid; gap: var(--cds-gap-lg); font-family: var(--font-anthropic-sans); }
+.xa h1 { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; text-wrap: balance; }
+.xa h2 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; }
+.xa h3 { font-size: var(--cds-font-size-body); font-weight: var(--cds-font-weight-medium); margin: 0; }
+.xa p { margin: 0; }
+.xa-muted { color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+.xa-take { max-width: 70ch; }
+.xa-tabs { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs); border-bottom: 1px solid var(--color-border-line); }
+.xa-tab { font: inherit; background: none; border: 0; border-bottom: 2px solid transparent; padding: var(--cds-pad-sm) var(--cds-pad-md); color: var(--color-fg-muted); cursor: pointer; }
+.xa-tab[aria-selected="true"] { color: var(--color-fg); border-bottom-color: var(--color-fg); }
+.xa-tab:focus-visible { outline: 2px solid var(--color-fg); outline-offset: 2px; }
+.xa-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); gap: var(--cds-gap-md); }
+.xa-kpi { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-md) var(--cds-pad-lg); display: grid; gap: var(--cds-gap-xs); align-content: start; }
+.xa .xa-kpi b { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); font-variant-numeric: tabular-nums; line-height: 1.1; }
+.xa-kpi.bad b { color: var(--color-bad); }
+.xa-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); display: grid; gap: var(--cds-gap-sm); align-content: start; min-width: 0; }
+.xa-chart { position: relative; min-height: 200px; }
+.xa-legend { display: flex; flex-wrap: wrap; gap: var(--cds-gap-md); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.xa-legend i { display: inline-block; width: .75rem; height: .75rem; border-radius: 3px; margin-right: var(--cds-gap-xs); vertical-align: -1px; }
+.xa-tip { position: absolute; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border); border-radius: var(--cds-radius); box-shadow: var(--cds-shadow-popover); padding: var(--cds-pad-xs) var(--cds-pad-sm); font-size: var(--cds-font-size-caption); white-space: nowrap; z-index: 2; }
+.xa-tip span { color: var(--cds-text-secondary); display: block; }
+.xa-tools { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); align-items: center; }
+.xa-tools input, .xa-tools select { font: inherit; padding: var(--cds-pad-xs) var(--cds-pad-sm); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); background: var(--color-bg); color: var(--color-fg); min-width: 0; }
+.xa-tools input { flex: 1 1 14rem; }
+.xa-tablebox { max-height: 34rem; overflow: auto; border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); }
+.xa table { border-collapse: collapse; width: 100%; font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; }
+.xa th { position: sticky; top: 0; background: var(--color-panel); text-align: left; font-weight: var(--cds-font-weight-medium); border-bottom: 1px solid var(--color-border-line); padding: 0; z-index: 1; }
+.xa th button { font: inherit; background: none; border: 0; color: inherit; cursor: pointer; padding: var(--cds-pad-sm); width: 100%; text-align: inherit; white-space: nowrap; }
+.xa th.num, .xa td.num { text-align: right; }
+.xa td { padding: var(--cds-pad-xs) var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); vertical-align: top; }
+.xa td.wrap { min-width: 14rem; }
+.xa tbody tr.pick { cursor: pointer; }
+.xa tbody tr.pick:hover td, .xa tbody tr[aria-selected="true"] td { background: var(--color-bg); }
+.xa-pill { display: inline-block; padding: 0 var(--cds-pad-xs); border-radius: 999px; border: 1px solid currentColor; font-size: var(--cds-font-size-caption); white-space: nowrap; }
+.s-bad { color: var(--color-bad); } .s-warn { color: var(--color-warn); } .s-mute { color: var(--color-fg-muted); } .s-ok { color: var(--color-ok); }
+.xa-detail { display: grid; gap: var(--cds-gap-sm); border-top: 1px solid var(--color-border-line); padding-top: var(--cds-pad-md); }
+.xa-detail dl { display: grid; grid-template-columns: max-content 1fr; gap: var(--cds-gap-xs) var(--cds-gap-md); margin: 0; font-size: var(--cds-font-size-caption); }
+.xa-detail dt { color: var(--color-fg-muted); }
+.xa-detail dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.xa-flags { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--cds-gap-xs); }
+.xa-flags li { border-left: 3px solid var(--cds-chart-muted); padding-left: var(--cds-pad-sm); font-size: var(--cds-font-size-caption); }
+.xa-flags li.critical { border-left-color: var(--cds-chart-status-critical); }
+.xa-flags li.high { border-left-color: var(--color-warn); }
+.xa-heat { overflow-x: auto; }
+.xa-heat table td.h { text-align: center; min-width: 2.75rem; }
+.xa-method { max-width: 72ch; display: grid; gap: var(--cds-gap-md); }
+[data-dash-source-state=empty] { color: transparent; }
+[data-dash-source-state=refreshing] { opacity: .5; transition: opacity var(--cds-dur-slow); }
+.xa-fail { display: flex; align-items: center; justify-content: center; gap: var(--cds-gap-xs); color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); min-height: inherit; }
+.xa-fail::before { content: ""; width: .375rem; height: .375rem; border-radius: 50%; background: var(--color-bad); }
+</style>
+
+<div class="xa">
+  <header style="display:grid;gap:var(--cds-gap-xs)">
+    <h1 id="top">Mr. Boddy</h1>
+    <p class="xa-take dash-skeleton" id="takeaway" data-source="ac_summary" data-field="text">—</p>
+    <p class="xa-muted">Sample data for a fictional company with fictional vendors. AI services are matched from real domains in proxy logs and OAuth grants. As of <span id="asof" data-source="ac_meta" data-field="as_of" class="dash-skeleton">—</span>.</p>
+  </header>
+
+  <nav class="xa-tabs" role="tablist" aria-label="Views">
+    <button class="xa-tab" role="tab" id="tab-blast" data-page="blast" aria-selected="true">Blast radius</button>
+    <button class="xa-tab" role="tab" id="tab-ai" data-page="ai" aria-selected="false">Shadow AI</button>
+    <button class="xa-tab" role="tab" id="tab-systems" data-page="systems" aria-selected="false">Shared systems</button>
+    <button class="xa-tab" role="tab" id="tab-method" data-page="method" aria-selected="false">How scoring works</button>
+  </nav>
+
+  <!-- ===================== BLAST RADIUS -->
+  <section id="blast" data-pg="blast" style="display:grid;gap:var(--cds-gap-lg)">
+    <div class="xa-kpis">
+      <div class="xa-kpi"><span class="xa-muted">Outside parties with access</span><b class="dash-skeleton" data-source="ac_kpis" data-field="parties">—</b></div>
+      <div class="xa-kpi bad"><span class="xa-muted">With admin or network-level access</span><b class="dash-skeleton" data-source="ac_kpis" data-field="deep_access">—</b></div>
+      <div class="xa-kpi"><span class="xa-muted">Stale or standing credentials</span><b class="dash-skeleton" data-source="ac_kpis" data-field="cred_flags">—</b></div>
+      <div class="xa-kpi bad"><span class="xa-muted">AI services in use, not approved</span><b class="dash-skeleton" data-source="ac_kpis" data-field="ai_unapproved">—</b></div>
+    </div>
+
+    <div class="xa-card" id="radius-card">
+      <h2>Who could do the most damage if breached</h2>
+      <p class="xa-muted">Blast radius score: the sensitivity of every data type a party can reach, times its privilege and how it connects. AI services found in traffic are ranked on the same scale.</p>
+      <div class="xa-legend"><span><i style="background:var(--cds-chart-muted)"></i>Contracted vendor</span><span><i id="lg-ai"></i>AI service, not fully approved</span></div>
+      <div class="xa-chart" id="radius-chart" data-source="ac_vendors"></div>
+    </div>
+
+    <div class="xa-card" id="vendor-card">
+      <h2>All outside parties</h2>
+      <p class="xa-muted">Select a row to see what it reaches and what needs fixing.</p>
+      <div class="xa-tools">
+        <input id="v-q" type="search" placeholder="Search vendors, systems, data types" aria-label="Search vendors">
+        <select id="v-kind" aria-label="Type"><option value="">All types</option><option value="contracted">Contracted vendors</option><option value="ai">AI services</option></select>
+      </div>
+      <div class="xa-tablebox">
+        <table id="v-table" data-source="ac_vendors" data-row-key="vendor_id">
+          <thead><tr>
+            <th data-field="rank" class="num"><button>Rank</button></th>
+            <th data-field="vendor"><button>Party</button></th>
+            <th data-field="service"><button>Service</button></th>
+            <th data-field="score" class="num"><button>Score</button></th>
+            <th data-field="privilege"><button>Privilege</button></th>
+            <th data-field="access_methods"><button>Connects by</button></th>
+            <th data-field="system_count" class="num"><button>Systems</button></th>
+            <th data-field="worst_flag"><button>Worst issue</button></th>
+            <th data-field="flag_count" class="num"><button>Issues</button></th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="xa-detail" id="v-detail" hidden>
+        <h3 id="vd-title"></h3>
+        <dl>
+          <dt>Reaches systems</dt><dd id="vd-systems"></dd>
+          <dt>Via network access</dt><dd id="vd-net"></dd>
+          <dt>Data it can touch</dt><dd id="vd-data"></dd>
+          <dt>Possible data</dt><dd id="vd-possible"></dd>
+          <dt>Subprocessors</dt><dd id="vd-sub"></dd>
+        </dl>
+        <ul class="xa-flags" id="vd-flags" data-source="ac_vendors"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SHADOW AI -->
+  <section id="ai" data-pg="ai" hidden style="display:grid;gap:var(--cds-gap-lg)">
+    <div class="xa-card">
+      <h2>AI services seen on the network</h2>
+      <p class="xa-muted">Matched from 14 days of proxy logs and from OAuth apps users connected to their accounts. Large uploads are POST or PUT requests over the policy's size limit.</p>
+      <div class="xa-tablebox">
+        <table id="ai-table" data-source="ac_shadow_ai" data-row-key="service_id">
+          <thead><tr>
+            <th data-field="service"><button>Service</button></th>
+            <th data-field="category"><button>Category</button></th>
+            <th data-field="policy_status"><button>Policy</button></th>
+            <th data-field="risk"><button>Risk</button></th>
+            <th data-field="users" class="num"><button>Users</button></th>
+            <th data-field="bytes_out" class="num"><button>Uploaded</button></th>
+            <th data-field="large_uploads" class="num"><button>Large uploads</button></th>
+            <th data-field="sensitive_grants" class="num"><button>Mailbox/file grants</button></th>
+            <th data-field="possible_data"><button>Data that may be exposed</button></th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="xa-card" id="heat-card">
+      <h2>Who uses what</h2>
+      <p class="xa-muted">Users per department for each AI service. Departments the policy marks as sensitive are listed first.</p>
+      <div class="xa-heat" id="heat" data-source="ac_shadow_ai"></div>
+    </div>
+  </section>
+
+  <!-- ===================== SYSTEMS -->
+  <section id="systems" data-pg="systems" hidden>
+    <div class="xa-card">
+      <h2>Systems reachable by the most outside parties</h2>
+      <p class="xa-muted">Each extra party with access is another way in. Systems at the top are where a single vendor breach is most likely to land.</p>
+      <div class="xa-tablebox">
+        <table id="c-table" data-source="ac_concentration" data-row-key="system">
+          <thead><tr>
+            <th data-field="system"><button>System</button></th>
+            <th data-field="criticality" class="num"><button>Criticality</button></th>
+            <th data-field="vendor_count" class="num"><button>Parties</button></th>
+            <th data-field="vendors"><button>Who</button></th>
+            <th data-field="data_classes"><button>Data held</button></th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== METHOD -->
+  <section id="method" data-pg="method" hidden>
+    <div class="xa-card xa-method">
+      <h2>How the blast radius score works</h2>
+      <p>For each party, the toolkit collects every system it connects to, plus every system in a network segment it can reach by VPN or site-to-site link. It adds up the weight of each data type those systems hold, then multiplies by the party's highest privilege and its riskiest way of connecting. The weights below are policy choices in the toolkit's policy file, not an industry standard.</p>
+      <p>For AI services, reach comes only from the OAuth scopes users granted (mail and calendar scopes reach email; file and site scopes reach file storage). Data a department might have pasted in is labeled "possible" and counts half, or in full when large uploads were seen.</p>
+      <p>Credentials unused for <span data-source="ac_meta" data-field="stale_credential_days" class="dash-skeleton">—</span> days and security reviews older than <span data-source="ac_meta" data-field="review_max_age_days" class="dash-skeleton">—</span> days are flagged.</p>
+      <div class="xa-tablebox" style="max-height:none" data-source="ac_meta" id="weights">
+        <table><thead><tr><th><button>Factor</button></th><th><button>Value</button></th><th class="num"><button>Weight</button></th></tr></thead><tbody></tbody></table>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+(() => {
+  dash.calc('ac_kpis', {
+    title: 'Headline counts', description: 'Outside parties, those with admin or network access, credential issues, and unapproved AI services in use.',
+    inputs: ['ac_vendors', 'ac_shadow_ai'],
+    fn: (ac_vendors, ac_shadow_ai) => [{
+      parties: ac_vendors.length,
+      deep_access: ac_vendors.filter((v) => v.privilege === 'admin' || (v.via_network || '') !== '').length,
+      cred_flags: ac_vendors.reduce((n, v) => n + (Array.isArray(v.flags) ? v.flags : JSON.parse(v.flags || '[]')).filter((f) => /credential/i.test(f.detail)).length, 0),
+      ai_unapproved: ac_shadow_ai.filter((a) => a.policy_status === 'unreviewed' || a.policy_status === 'prohibited').length,
+    }],
+  });
+  dash.calc('ac_summary', {
+    title: 'Takeaway', description: 'One sentence built from the top-ranked party and the riskiest AI service.',
+    inputs: ['ac_vendors', 'ac_shadow_ai'],
+    fn: (ac_vendors, ac_shadow_ai) => {
+      const top = ac_vendors[0];
+      const ai = ac_shadow_ai.filter((a) => a.policy_status !== 'approved' && a.risk === 'critical');
+      let t = top ? `${top.vendor} has the largest blast radius: ${top.privilege} access to ${top.system_count} systems holding ${top.data_classes}.` : '';
+      if (ai.length) t += ` ${ai.map((a) => a.service).join(', ')} ${ai.length > 1 ? 'are' : 'is'} the riskiest AI use, with mailbox or file access granted by users.`;
+      return [{ text: t }];
+    },
+  });
+
+  const tabs = [...document.querySelectorAll('.xa-tab')];
+  let page = 'blast';
+  const show = (id, link = true) => {
+    page = id;
+    tabs.forEach((t) => t.setAttribute('aria-selected', String(t.dataset.page === id)));
+    document.querySelectorAll('[data-pg]').forEach((s) => { s.hidden = s.dataset.pg !== id; });
+    if (link) dash.setLink(id);
+    window.xaRedraw && window.xaRedraw();
+  };
+  tabs.forEach((t) => t.addEventListener('click', () => show(t.dataset.page)));
+  const h = location.hash.slice(1);
+  if (['blast', 'ai', 'systems', 'method'].includes(h)) show(h, false);
+  window.xaPage = () => page;
+})();
+</script>
+
+<script>
+(() => {
+  const fmtN = d3.format(',');
+  const fmtB = (b) => { if (b == null) return ''; const u = ['B', 'KB', 'MB', 'GB']; let i = 0, v = b; while (v >= 1000 && i < 3) { v /= 1000; i++; } return (i ? d3.format('.1f')(v) : v) + ' ' + u[i]; };
+  const fmtDT = (s) => { if (!s) return ''; const d = new Date(s + 'Z'); return isNaN(d) ? s : d3.utcFormat('%b %-d, %Y %H:%M')(d); };
+  const pill = (text, cls) => { const s = document.createElement('span'); s.className = 'xa-pill ' + cls; s.textContent = text; return s; };
+  const sevCls = { critical: 's-bad', high: 's-warn', medium: 's-mute', none: 's-ok' };
+  const polCls = { approved: 's-ok', restricted: 's-warn', unreviewed: 's-bad', prohibited: 's-bad' };
+  const arr = (v) => Array.isArray(v) ? v : (typeof v === 'string' && v ? JSON.parse(v) : (v && typeof v === 'object' ? v : []));
+  const skel = (el, on) => el.classList.toggle('dash-skeleton', on);
+  const fail = (el) => { el.replaceChildren(); const d = document.createElement('div'); d.className = 'xa-fail'; d.textContent = 'Failed to load'; el.append(d); };
+  document.getElementById('lg-ai').style.background = dash.colors[0];
+
+  function makeTable(tableId, opts) {
+    const table = document.getElementById(tableId), tbody = table.querySelector('tbody');
+    const ths = [...table.querySelectorAll('th')];
+    const st = { key: null, dir: 1 };
+    ths.forEach((th) => th.querySelector('button').addEventListener('click', () => {
+      const k = th.dataset.field;
+      st.dir = st.key === k ? -st.dir : ((opts.numeric || []).includes(k) ? -1 : 1); st.key = k;
+      ths.forEach((x) => x.removeAttribute('aria-sort'));
+      th.setAttribute('aria-sort', st.dir > 0 ? 'ascending' : 'descending');
+      draw();
+    }));
+    let rows = [];
+    function draw() {
+      let r = rows.filter(opts.filter || (() => true));
+      if (st.key) {
+        const k = st.key, num = (opts.numeric || []).includes(k), ord = opts.order && opts.order[k];
+        r = r.slice().sort((a, b) => ord ? (ord.indexOf(a[k]) - ord.indexOf(b[k])) * st.dir
+          : num ? ((a[k] ?? -1) - (b[k] ?? -1)) * st.dir : String(a[k] ?? '').localeCompare(String(b[k] ?? '')) * st.dir);
+      }
+      tbody.replaceChildren(...r.map((row) => {
+        const tr = document.createElement('tr'); tr.dataset.key = row[opts.key];
+        if (opts.onPick) { tr.className = 'pick'; tr.tabIndex = 0; tr.setAttribute('aria-selected', String(row[opts.key] === opts.picked())); }
+        ths.forEach((th) => {
+          const td = document.createElement('td'), k = th.dataset.field, v = row[k];
+          if ((opts.numeric || []).includes(k)) td.className = 'num';
+          if ((opts.wrap || []).includes(k)) td.className = 'wrap';
+          const c = opts.cell && opts.cell(k, v, row);
+          if (c) td.append(c); else td.textContent = v == null ? '' : (typeof v === 'number' ? fmtN(v) : v);
+          tr.append(td);
+        });
+        return tr;
+      }));
+    }
+    if (opts.onPick) {
+      tbody.addEventListener('click', (e) => { const tr = e.target.closest('tr[data-key]'); if (tr) opts.onPick(tr.dataset.key); });
+      tbody.addEventListener('keydown', (e) => { if (e.key === 'Enter') { const tr = e.target.closest('tr[data-key]'); if (tr) opts.onPick(tr.dataset.key); } });
+    }
+    return { set(r) { rows = r; draw(); }, draw };
+  }
+
+  // ---- vendor table + detail
+  const vq = document.getElementById('v-q'), vk = document.getElementById('v-kind');
+  let vendors = [], picked = null;
+  const vt = makeTable('v-table', {
+    key: 'vendor_id', numeric: ['rank', 'score', 'system_count', 'flag_count'],
+    order: { worst_flag: ['none', 'medium', 'high', 'critical'] },
+    filter: (r) => (!vk.value || (vk.value === 'ai' ? r.kind.startsWith('ai_') : r.kind === vk.value)) &&
+      (!vq.value || [r.vendor, r.service, r.systems, r.data_classes, r.possible_data].join(' ').toLowerCase().includes(vq.value.toLowerCase())),
+    cell: (k, v) => k === 'worst_flag' ? pill(v, sevCls[v] || 's-mute') : k === 'score' ? document.createTextNode(d3.format('.1f')(v)) : null,
+    onPick: (id) => { picked = id; vt.draw(); detail(); }, picked: () => picked,
+  });
+  vq.addEventListener('input', vt.draw); vk.addEventListener('change', vt.draw);
+  function detail() {
+    const box = document.getElementById('v-detail');
+    const r = vendors.find((v) => v.vendor_id === picked);
+    box.hidden = !r; if (!r) return;
+    const where = 'vendor_id=' + encodeURIComponent(r.vendor_id);
+    const set = (id, field, text) => { const el = document.getElementById(id); el.textContent = text ?? (r[field] || 'None'); el.dataset.source = 'ac_vendors'; el.dataset.field = field; el.dataset.where = where; };
+    set('vd-title', 'service', `${r.vendor}: ${r.service}`);
+    set('vd-systems', 'systems'); set('vd-net', 'via_network'); set('vd-data', 'data_classes');
+    set('vd-possible', 'possible_data'); set('vd-sub', 'subprocessors');
+    const ul = document.getElementById('vd-flags');
+    const flags = arr(r.flags);
+    ul.replaceChildren(...(flags.length ? flags : [{ severity: 'none', detail: 'No issues found.' }]).map((f) => {
+      const li = document.createElement('li'); li.className = f.severity; li.textContent = f.detail; return li;
+    }));
+  }
+
+  // ---- ranked chart
+  function radius(el, rows) {
+    el.replaceChildren();
+    const W = el.clientWidth; if (!W || !rows.length) return;
+    const bh = 18, gap = 8, H = rows.length * (bh + gap);
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img');
+    const lab = (r) => r.kind.startsWith('ai_') ? r.service : r.vendor;
+    const m = svg.append('text').attr('font-size', 12);
+    let lw = 0, vw = 0;
+    rows.forEach((r) => { m.text(lab(r)); lw = Math.max(lw, m.node().getComputedTextLength()); m.text(d3.format('.1f')(r.score)); vw = Math.max(vw, m.node().getComputedTextLength()); });
+    m.remove(); lw = Math.min(lw, W * 0.42);
+    const x0 = lw + 10, x = d3.scaleLinear([0, d3.max(rows, (r) => r.score) || 1], [0, Math.max(10, W - x0 - vw - 8)]);
+    const tip = document.createElement('div'); tip.className = 'xa-tip'; tip.hidden = true; el.append(tip);
+    rows.forEach((r, i) => {
+      const y = i * (bh + gap), g = svg.append('g');
+      const t = g.append('text').attr('y', y + bh / 2).attr('dy', '0.35em').attr('font-size', 12).attr('fill', 'var(--color-fg)').text(lab(r));
+      let s = lab(r); while (s.length > 3 && t.node().getComputedTextLength() > lw) { s = s.slice(0, -2); t.text(s + '…'); }
+      const w = x(r.score);
+      g.append('rect').attr('x', x0).attr('y', y).attr('width', Math.max(w, 1)).attr('height', bh).attr('rx', 4)
+        .attr('fill', r.kind.startsWith('ai_') ? dash.colors[0] : 'var(--cds-chart-muted)');
+      g.append('text').attr('x', x0 + w + 6).attr('y', y + bh / 2).attr('dy', '0.35em').attr('font-size', 12).attr('fill', 'var(--color-fg-muted)').text(d3.format('.1f')(r.score));
+      g.append('rect').attr('x', 0).attr('y', y - gap / 2).attr('width', W).attr('height', bh + gap).attr('fill', 'transparent').style('cursor', 'pointer')
+        .on('click', () => { picked = r.vendor_id; vt.draw(); detail(); document.getElementById('vendor-card').scrollIntoView({ block: 'nearest' }); })
+        .on('mousemove', (ev) => {
+          tip.hidden = false; tip.replaceChildren();
+          const hd = document.createElement('span'); hd.textContent = `${r.vendor} · ${r.service}`; tip.append(hd);
+          [`Score ${d3.format('.1f')(r.score)}`, `${r.privilege} via ${r.access_methods}`, `${fmtN(r.system_count)} systems, ${fmtN(r.flag_count)} issues`].forEach((l) => { const d = document.createElement('div'); d.textContent = l; tip.append(d); });
+          const [mx] = d3.pointer(ev, el);
+          tip.style.left = Math.max(0, Math.min(mx + 12, el.clientWidth - tip.offsetWidth)) + 'px';
+          tip.style.top = (y + bh + 4) + 'px';
+        })
+        .on('mouseleave', () => { tip.hidden = true; });
+    });
+  }
+
+  // ---- AI table + heatmap
+  const at = makeTable('ai-table', {
+    key: 'service_id', numeric: ['users', 'bytes_out', 'large_uploads', 'sensitive_grants'], wrap: ['possible_data'],
+    order: { risk: ['none', 'medium', 'high', 'critical'] },
+    cell: (k, v) => k === 'risk' ? pill(v, sevCls[v]) : k === 'policy_status' ? pill(v, polCls[v] || 's-mute') : k === 'bytes_out' ? document.createTextNode(fmtB(v)) : null,
+  });
+  const SENS = ['Finance', 'Legal', 'HR', 'Engineering', 'Security'];
+  function heat(el, rows) {
+    const depts = [...new Set(rows.flatMap((r) => Object.keys(arr(r.departments))))]
+      .sort((a, b) => (SENS.includes(b) - SENS.includes(a)) || a.localeCompare(b));
+    const max = d3.max(rows, (r) => d3.max(Object.values(arr(r.departments)))) || 1;
+    const base = getComputedStyle(el).getPropertyValue('--color-panel').trim() || 'transparent';
+    const ramp = (v) => { const c = d3.color(getComputedStyle(document.getElementById('lg-ai')).backgroundColor); if (!c) return 'transparent'; c.opacity = 0.12 + 0.8 * (v / max); return c.formatRgb(); };
+    const table = document.createElement('table');
+    const thead = document.createElement('thead'), hr = document.createElement('tr');
+    ['Service', ...depts].forEach((d, i) => { const th = document.createElement('th'); const b = document.createElement('button'); b.textContent = d + (SENS.includes(d) ? ' *' : ''); th.append(b); if (i) th.className = 'num'; hr.append(th); });
+    thead.append(hr); table.append(thead);
+    const tb = document.createElement('tbody');
+    rows.forEach((r) => {
+      const tr = document.createElement('tr'), dep = arr(r.departments);
+      const td0 = document.createElement('td'); td0.textContent = r.service; tr.append(td0);
+      depts.forEach((d) => {
+        const td = document.createElement('td'); td.className = 'h'; const v = dep[d] || 0;
+        td.textContent = v ? fmtN(v) : '';
+        if (v) td.style.background = ramp(v);
+        tr.append(td);
+      });
+      tb.append(tr);
+    });
+    table.append(tb);
+    const note = document.createElement('p'); note.className = 'xa-muted'; note.textContent = '* Sensitive department under the policy.';
+    el.replaceChildren(table, note);
+    void base;
+  }
+
+  const ct = makeTable('c-table', { key: 'system', numeric: ['criticality', 'vendor_count'], wrap: ['vendors', 'data_classes'] });
+
+  function redraw() {
+    [['ac_kpis', '[data-source="ac_kpis"]'], ['ac_summary', '#takeaway'], ['ac_meta', 'span[data-source="ac_meta"]']].forEach(([id, sel]) => {
+      const d = dash.data(id);
+      document.querySelectorAll(sel).forEach((el) => {
+        if (d.status === 'ok' && d.data[0]) {
+          skel(el, false);
+          let v = d.data[0][el.dataset.field];
+          el.textContent = el.dataset.field === 'as_of' ? fmtDT(v) : typeof v === 'number' ? fmtN(v) : v;
+        } else { if (d.status === 'error') skel(el, false); el.textContent = '—'; }
+      });
+    });
+
+    const v = dash.data('ac_vendors'), rc = document.getElementById('radius-chart');
+    if (v.status === 'ok') {
+      vendors = v.data; vt.set(v.data); detail();
+      skel(rc, false);
+      if (window.xaPage() === 'blast') radius(rc, v.data.slice(0, 16));
+    } else if (v.status === 'error') { skel(rc, false); fail(rc); } else { rc.replaceChildren(); skel(rc, true); }
+
+    const a = dash.data('ac_shadow_ai'), hm = document.getElementById('heat');
+    if (a.status === 'ok') { at.set(a.data); heat(hm, a.data); } else if (a.status === 'error') fail(hm);
+
+    const c = dash.data('ac_concentration');
+    if (c.status === 'ok') ct.set(c.data);
+
+    const m = dash.data('ac_meta'), wb = document.querySelector('#weights tbody');
+    if (m.status === 'ok' && m.data[0]) {
+      const r = m.data[0], out = [];
+      Object.entries(arr(r.data_class_weights)).forEach(([k, w]) => out.push(['Data type', k, w]));
+      Object.entries(arr(r.privilege_multiplier)).forEach(([k, w]) => out.push(['Privilege multiplier', k, w]));
+      Object.entries(arr(r.access_method_multiplier)).forEach(([k, w]) => out.push(['Connection multiplier', k, w]));
+      wb.replaceChildren(...out.map(([f, k, w]) => { const tr = document.createElement('tr'); [f, k, d3.format('.1f')(w)].forEach((x, i) => { const td = document.createElement('td'); if (i === 2) td.className = 'num'; td.textContent = x; tr.append(td); }); return tr; }));
+    }
+  }
+  window.xaRedraw = redraw;
+  dash.onData(redraw);
+})();
+</script>

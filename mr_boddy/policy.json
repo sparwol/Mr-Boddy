@@ -1,0 +1,75 @@
+{
+  "_note": "These are policy choices, not industry standards. Edit them to match your own risk appetite and SLAs.",
+  "access": {
+    "data_class_weights": {
+      "credentials": 10,
+      "PCI": 9,
+      "PHI": 9,
+      "source_code": 8,
+      "PII": 7,
+      "customer_data": 7,
+      "financial": 7,
+      "employee_data": 6,
+      "internal": 3,
+      "public": 0
+    },
+    "privilege_multiplier": {
+      "read": 1.0,
+      "write": 1.5,
+      "admin": 2.5
+    },
+    "access_method_multiplier": {
+      "site_to_site": 2.0,
+      "vpn": 1.8,
+      "on_prem_agent": 1.8,
+      "service_account": 1.5,
+      "api_key": 1.3,
+      "oauth": 1.2,
+      "sso": 1.0,
+      "file_transfer": 1.1
+    },
+    "stale_credential_days": 90,
+    "review_max_age_days": 365,
+    "large_upload_bytes": 1000000,
+    "sensitive_departments": [
+      "Finance",
+      "Legal",
+      "HR",
+      "Engineering",
+      "Security"
+    ],
+    "_department_data_hint_note": "Used ONLY to label data that MIGHT have been pasted into an unvetted AI tool. Shown as 'possible', never as fact.",
+    "department_data_hint": {
+      "Finance": "financial",
+      "HR": "employee_data",
+      "Engineering": "source_code",
+      "Sales": "customer_data",
+      "Support": "customer_data",
+      "Legal": "internal",
+      "Security": "internal",
+      "Marketing": "internal",
+      "Operations": "internal"
+    },
+    "_scope_note": "Substring match, case-insensitive. Google's drive.file (per-file) is intentionally NOT listed; full drive and drive.readonly are.",
+    "sensitive_oauth_scope_keywords": [
+      "mail.",
+      "gmail",
+      "/auth/drive",
+      "drive.readonly",
+      "files.",
+      "sites.",
+      "calendars.",
+      "contacts.",
+      "offline_access",
+      "directory.",
+      "user.read.all"
+    ],
+    "scope_to_system": {
+      "mail.": "Email (Microsoft 365)",
+      "calendars.": "Email (Microsoft 365)",
+      "contacts.": "Email (Microsoft 365)",
+      "files.": "File storage (SharePoint/OneDrive)",
+      "sites.": "File storage (SharePoint/OneDrive)"
+    }
+  }
+}
