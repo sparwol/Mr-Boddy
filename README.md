@@ -45,3 +45,7 @@ Weights and limits live in `mr_boddy/policy.json`; AI service domains in `mr_bod
 
 - Shadow AI detection sees only what passes through your proxy and identity provider. Personal devices off-network are invisible to it.
 - Sample data: the company, users, vendors (fictional names) and logs are invented. AI services are matched by their real public domains; their policy status is the fictional company's choice.
+
+## License
+
+Mr. Boddy is source-available under the [PolyForm Noncommercial License 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0/): free to use, modify, and share for **noncommercial** purposes. **Commercial use requires a separate paid license** — contact sean@sparwol.com. See [LICENSE](LICENSE).
